@@ -15,7 +15,7 @@
             justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 0; /* 상하 패딩, 좌우는 app-container에서 처리 */
+            padding: 20px 0;
             background-color: #f0f2f5;
             color: #333;
             overflow-x: hidden;
@@ -34,19 +34,32 @@
             max-width: 500px;
         }
 
+        .title-container { /* 아이콘과 제목을 감싸는 컨테이너 */
+            display: flex;
+            align-items: center; /* 수직 가운데 정렬 */
+            justify-content: center; /* 수평 가운데 정렬 */
+            margin-bottom: 25px; /* 제목 아래 여백 */
+        }
+
+        .app-icon { /* 앱 아이콘을 위한 스타일 */
+            width: 40px; /* 아이콘 너비 조정 */
+            height: 40px; /* 아이콘 높이 조정 */
+            margin-right: 10px; /* 제목과의 오른쪽 여백 */
+        }
+
         .app-container h1 {
-            font-family: 'Do Hyeon', sans-serif; /* 제목에도 폰트 적용 */
-            font-size: clamp(1.8em, 6vw, 2.2em); /* 반응형 제목 크기 */
-            margin-bottom: 25px; /* 마진 조정 */
-            color: #2c3e50; /* 제목 색상 변경 */
+            font-family: 'Do Hyeon', sans-serif;
+            font-size: clamp(1.8em, 6vw, 2.2em);
+            margin-top: 0; 
+            margin-bottom: 0; /* title-container에서 여백 관리 */
+            color: #2c3e50;
         }
 
         .roulette-wrapper {
             position: relative;
-            /* clamp 함수로 유동적인 크기 설정: 최소 200px, 화면너비의 65%, 최대 300px */
             width: clamp(200px, 65vw, 300px);
             height: clamp(200px, 65vw, 300px);
-            margin-bottom: 30px;
+            margin-bottom: 8px; /* 룰렛과 결과 표시 텍스트 사이 간격 더 줄임 (기존 15px) */
         }
 
         .pointer {
@@ -56,7 +69,7 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: clamp(10px, 3vw, 15px) solid transparent; /* 포인터 크기도 반응형으로 */
+            border-left: clamp(10px, 3vw, 15px) solid transparent;
             border-right: clamp(10px, 3vw, 15px) solid transparent;
             border-top: clamp(15px, 4vw, 20px) solid #e74c3c;
             z-index: 10;
@@ -68,7 +81,7 @@
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            border: clamp(3px, 1vw, 5px) solid #fff; /* 테두리도 반응형 */
+            border: clamp(3px, 1vw, 5px) solid #fff;
             box-shadow: 0 0 clamp(10px, 2vw, 15px) rgba(0,0,0,0.2);
         }
 
@@ -77,32 +90,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* GSAP이 부모(.rouletteWheel)를 회전시키므로, 이 컨테이너는 룰렛과 함께 회전합니다. */
-            /* 내부의 .menu-text가 반대 회전을 담당합니다. */
         }
 
         .menu-text {
             font-family: 'Do Hyeon', sans-serif;
-            /* 글자 크기를 clamp로 반응형 설정: 최소 10px, 화면너비의 3%, 최대 13px */
-            font-size: clamp(10px, 3vw, 13px); 
+            font-size: clamp(9px, 2.8vw, 12px); /* 텍스트가 바깥으로 이동함에 따라 크기 미세 조정 */
             font-weight: normal;
-            color: #ffffff; /* 글자색은 흰색 유지 */
-            /* 텍스트 테두리 효과 (그림자 다중 사용) */
+            color: #ffffff;
             text-shadow: 
                 -1px -1px 0 #000,  
                  1px -1px 0 #000,
                 -1px  1px 0 #000,
                  1px  1px 0 #000,
-                 0px  0px 4px rgba(0,0,0,0.6); /* 부드러운 바깥 그림자 추가 */
-            /* 패딩 조정 */
-            padding: clamp(2px, 0.7vw, 3px) clamp(4px, 0.9vw, 5px);
+                 0px  0px 3px rgba(0,0,0,0.7); /* 그림자 약간 더 선명하게 */
+            padding: clamp(2px, 0.6vw, 3px) clamp(3px, 0.8vw, 4px); /* 패딩 미세 조정 */
             white-space: nowrap;
-            /* 최대 너비도 clamp로 반응형 설정, 바깥으로 이동하며 공간 확보 */
-            max-width: clamp(70px, 22vw, 110px); 
+            max-width: clamp(65px, 20vw, 100px); /* 최대 너비 미세 조정 */
             overflow: hidden;
             text-overflow: ellipsis;
             letter-spacing: 0.5px;
-            /* 초기 transform은 JS에서 설정합니다. */
         }
 
         #spinButton {
@@ -133,12 +139,12 @@
         }
 
         #resultDisplay {
-            margin-top: 20px;
-            font-size: 1.2em; /* 기본 크기 살짝 조정 */
+            margin-top: 15px; /* 룰렛과의 간격이 줄었으므로, 이 부분도 살짝 조정 (기존 20px) */
+            font-size: 1.2em;
             font-weight: bold;
             color: #2c3e50;
             padding: 10px;
-            min-height: 45px; /* 최소 높이 조정 */
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -154,9 +160,9 @@
         }
 
         .menu-management h2 {
-            font-family: 'Do Hyeon', sans-serif; /* 메뉴 관리 제목에도 폰트 적용 */
+            font-family: 'Do Hyeon', sans-serif;
             margin-top: 0;
-            font-size: 1.3em; /* 크기 살짝 키움 */
+            font-size: 1.3em;
             color: #333;
         }
 
@@ -208,20 +214,20 @@
         #menuList li span {
             flex-grow: 1;
             text-align: left;
-            margin-right: 5px; /* 삭제 버튼과의 간격 */
-            word-break: break-all; /* 긴 메뉴 이름 줄바꿈 */
+            margin-right: 5px;
+            word-break: break-all;
         }
 
         .deleteMenuButton {
-            padding: 7px 10px; /* 터치 영역 확보 */
+            padding: 7px 10px;
             background-color: #e74c3c;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.85em; /* 글자 크기 살짝 키움 */
-            margin-left: auto; /* 오른쪽 정렬 */
-            flex-shrink: 0; /* 버튼 크기 유지 */
+            font-size: 0.85em;
+            margin-left: auto;
+            flex-shrink: 0;
         }
         .deleteMenuButton:hover {
             background-color: #c0392b;
@@ -241,7 +247,7 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
-            padding: 15px; /* 모달이 화면 가장자리에 붙지 않도록 */
+            padding: 15px;
             box-sizing: border-box;
         }
         .modal-overlay.visible {
@@ -250,15 +256,15 @@
         }
         .modal-content {
             background-color: white;
-            padding: 25px; /* 패딩 조정 */
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             text-align: center;
             transform: scale(0.9);
             transition: transform 0.3s ease;
             position: relative;
-            width: 100%; /* 패딩을 고려하여 너비 설정 */
-            max-width: 450px; /* 모달 최대 너비 */
+            width: 100%;
+            max-width: 450px;
             box-sizing: border-box;
         }
         .modal-overlay.visible .modal-content {
@@ -266,13 +272,13 @@
         }
         .modal-content h2 {
             font-family: 'Do Hyeon', sans-serif;
-            font-size: clamp(1.5em, 5vw, 2em); /* 반응형 폰트 */
+            font-size: clamp(1.5em, 5vw, 2em);
             color: #3498db;
             margin-top: 0;
             margin-bottom: 10px;
         }
         .modal-content p {
-            font-size: clamp(1.1em, 4vw, 1.5em); /* 반응형 폰트 */
+            font-size: clamp(1.1em, 4vw, 1.5em);
             font-weight: bold;
             color: #2c3e50;
             margin-bottom: 20px;
@@ -300,19 +306,27 @@
             z-index: 1;
         }
         
-        /* 모바일 화면에 대한 미디어 쿼리 (기존 400px에서 좀 더 세분화 가능하나, clamp로 많이 대체) */
-        @media (max-width: 480px) { /* 일반적인 모바일 화면 대응 */
+        @media (max-width: 480px) {
             .app-container h1 {
-                font-size: 1.6em; /* 모바일에서 H1 크기 조정 */
-                margin-bottom: 15px;
+                font-size: 1.6em;
+            }
+             .title-container { 
+                margin-bottom: 20px;
+            }
+            .app-icon { 
+                width: 35px;
+                height: 35px;
+                margin-right: 8px;
+            }
+            .roulette-wrapper { /* 모바일에서 룰렛과 결과 표시 텍스트 사이 간격 */
+                margin-bottom: 5px; /* 더 가깝게 조정 */
+            }
+            #resultDisplay { /* 모바일에서 결과 표시 텍스트 위쪽 간격 */
+                margin-top: 10px; /* 더 가깝게 조정 */
             }
             #spinButton {
                 padding: 10px 20px;
                 font-size: 1em;
-            }
-            #resultDisplay {
-                font-size: 1.1em;
-                min-height: 40px;
             }
             .menu-management h2 {
                 font-size: 1.1em;
@@ -329,7 +343,24 @@
 </head>
 <body>
     <div class="app-container">
-        <h1>결정장애 해결! 점심 룰렛</h1>
+
+        <div class="title-container">
+            <svg class="app-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="45" fill="#E0E0E0"/>
+              <path d="M50 50 L50 5 A45 45 0 0 1 88.99 35.00 Z" fill="#FF9800"/>
+              <path d="M50 50 L88.99 35.00 A45 45 0 0 1 88.99 65.00 Z" fill="#2196F3"/>
+              <path d="M50 50 L88.99 65.00 A45 45 0 0 1 50 95 Z" fill="#4CAF50"/>
+              <path d="M50 50 L50 95 A45 45 0 0 1 11.01 65.00 Z" fill="#F44336"/>
+              <path d="M50 50 L11.01 65.00 A45 45 0 0 1 11.01 35.00 Z" fill="#9C27B0"/>
+              <path d="M50 50 L11.01 35.00 A45 45 0 0 1 50 5 Z" fill="#FFEB3B"/>
+              <circle cx="50" cy="50" r="10" fill="#FFFFFF"/>
+              <circle cx="50" cy="50" r="8" fill="#757575"/>
+              <polygon points="50,15 45,30 55,30" fill="#D32F2F" transform="rotate(45 50 50)"/>
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#757575" stroke-width="3"/>
+            </svg>
+            <h1>결정장애 해결! 점심 룰렛</h1>
+        </div>
+
         <div class="roulette-wrapper">
             <div class="pointer"></div>
             <div id="rouletteWheel"></div>
@@ -376,9 +407,8 @@
             const ROULETTE_STORAGE_KEY = 'lunchRouletteMenus_v2';
 
             let anglePerSlice = 0;
-            // let currentRotation = 0; // GSAP이 관리하므로 직접 추적할 필요는 줄어듭니다.
             let isSpinning = false;
-            let textSpansArray = []; // 모든 메뉴 텍스트 span 요소를 저장할 배열
+            let textSpansArray = [];
 
             function loadMenus() {
                 const storedMenus = localStorage.getItem(ROULETTE_STORAGE_KEY);
@@ -425,7 +455,7 @@
             }
             
             function initializeWheel() {
-                textSpansArray = []; // 배열 초기화
+                textSpansArray = [];
                 while (wheel.firstChild) {
                     wheel.removeChild(wheel.firstChild);
                 }
@@ -450,7 +480,6 @@
                 }
                 wheel.style.background = `conic-gradient(${gradientColors.join(', ')})`;
 
-                // 룰렛의 현재 GSAP 회전값을 가져와서 텍스트 초기 방향 설정에 사용
                 const currentWheelGsapRotation = gsap.getProperty(wheel, "rotation") || 0;
 
                 menus.forEach((menu, index) => {
@@ -464,12 +493,12 @@
                         return; 
                     }
                     const wheelRadius = wheelDiameter / 2;
-                    const radiusForText = wheelRadius * 0.60; 
+                    // 룰렛 내 텍스트를 원의 더 바깥쪽으로 이동 (기존 0.60에서 0.68로 변경)
+                    const radiusForText = wheelRadius * 0.68; 
 
                     const x = wheelRadius + radiusForText * Math.cos(textAngleDeg * Math.PI / 180 - Math.PI / 2);
                     const y = wheelRadius + radiusForText * Math.sin(textAngleDeg * Math.PI / 180 - Math.PI / 2);
                     
-                    // menu-text-item-container는 각 슬라이스의 각도로 회전 (룰렛 회전과 별개로 초기 위치 설정)
                     textItemContainer.style.left = `${x}px`;
                     textItemContainer.style.top = `${y}px`;
                     textItemContainer.style.transform = `translate(-50%, -50%) rotate(${textAngleDeg}deg)`;
@@ -477,15 +506,12 @@
                     const textSpan = document.createElement('span');
                     textSpan.className = 'menu-text';
                     textSpan.textContent = menu;
-                    // 각 텍스트 span에 해당 슬라이스의 중심 각도를 저장
                     textSpan.dataset.textAngleDeg = textAngleDeg; 
-                    // 초기 텍스트 방향 설정: 룰렛의 현재 회전을 고려하여 수평 유지
                     textSpan.style.transform = `rotate(${-(textAngleDeg + currentWheelGsapRotation)}deg)`;
-
 
                     textItemContainer.appendChild(textSpan);
                     wheel.appendChild(textItemContainer);
-                    textSpansArray.push(textSpan); // 배열에 추가
+                    textSpansArray.push(textSpan);
                 });
             }
 
@@ -580,51 +606,26 @@
                 spinButton.disabled = true;
                 resultDisplay.textContent = "돌아간다... 🌀";
 
-                // GSAP 애니메이션 시작 전 현재 룰렛 회전값을 가져옵니다.
-                // let currentWheelRotation = gsap.getProperty(wheel, "rotation"); // 이 변수는 이제 GSAP의 onUpdate에서 직접 사용됩니다.
-
                 const numMenus = menus.length;
                 const randomIndex = Math.floor(Math.random() * numMenus);
                 const chosenMenu = menus[randomIndex];
                 
                 const targetSliceCenterAngle = randomIndex * anglePerSlice + anglePerSlice / 2;
-                let finalAngle = -targetSliceCenterAngle; // 포인터(0도)에 선택된 메뉴의 중심이 오도록
-                
-                // GSAP은 상대적 회전이 아닌 절대적 목표 회전값을 사용합니다.
-                // 현재 회전값에서 여러 바퀴를 더하고 최종 각도로 정렬합니다.
                 const currentWheelGsapRotation = gsap.getProperty(wheel, "rotation");
-                const fullRotations = (4 + Math.floor(Math.random() * 4)) * 360;
-                
-                // 목표 회전량: (현재 룰렛의 정규화된 각도) + (추가 전체 회전) + (최종 정렬 각도)
-                // 이렇게 하면 항상 앞으로 충분히 회전합니다.
-                // GSAP은 rotation 값을 누적하므로, 현재 값에서 시작하여 목표값까지 회전합니다.
-                // 따라서, (현재값 - 현재값%360)은 현재 몇바퀴 돌았는지를 제외한 순수 각도를 의미하지 않습니다.
-                // GSAP의 rotation은 절대 누적값이므로, 여기에 fullRotations과 finalAngle을 더해줍니다.
-                let targetWheelRotation = currentWheelGsapRotation + fullRotations + (finalAngle - (currentWheelGsapRotation % 360 + 360) % 360);
-                // 위 계산은 복잡할 수 있으므로, 더 간단하게 목표 각도를 설정합니다:
-                // 1. 최종적으로 룰렛이 멈춰야 할 각도 (선택된 메뉴가 포인터에 오도록)
-                //    룰렛 자체가 -targetSliceCenterAngle 만큼 회전하면 됨.
-                // 2. 여기에 여러 바퀴 회전을 더함.
-                //    GSAP은 shortestDistance 옵션이 없으면 지정된 값으로 바로 가므로, 충분히 큰 값을 줘야 여러 바퀴 돔.
-                //    targetWheelRotation = (기존 회전 수 * 360) - targetSliceCenterAngle + (추가 회전 수 * 360)
-                //    더 간단히:
-                targetWheelRotation = (Math.floor(currentWheelGsapRotation / 360) + (4 + Math.floor(Math.random() * 4))) * 360 - targetSliceCenterAngle;
-
+                let targetWheelRotation = (Math.floor(currentWheelGsapRotation / 360) + (4 + Math.floor(Math.random() * 4))) * 360 - targetSliceCenterAngle;
 
                 gsap.to(wheel, {
                     rotation: targetWheelRotation,
                     duration: 6,
                     ease: "expo.out",
                     onUpdate: function() {
-                        const R_wheel = gsap.getProperty(wheel, "rotation"); // 현재 룰렛의 회전값
+                        const R_wheel = gsap.getProperty(wheel, "rotation");
                         textSpansArray.forEach(span => {
                             const textAngleDegForThisSpan = parseFloat(span.dataset.textAngleDeg);
-                            // 텍스트가 항상 수평을 유지하도록 반대 방향으로 회전
                             span.style.transform = `rotate(${-(textAngleDegForThisSpan + R_wheel)}deg)`;
                         });
                     },
                     onComplete: () => {
-                        // 애니메이션 완료 후 최종 각도로 한 번 더 정확히 설정
                         const R_wheel_final = gsap.getProperty(wheel, "rotation");
                         textSpansArray.forEach(span => {
                             const textAngleDegForThisSpan = parseFloat(span.dataset.textAngleDeg);
