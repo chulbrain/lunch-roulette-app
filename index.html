@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결정장애 해결! 점심 룰렛</title>
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <style>
@@ -59,7 +60,7 @@
             position: relative;
             width: clamp(200px, 65vw, 300px);
             height: clamp(200px, 65vw, 300px);
-            margin-bottom: 8px; /* 룰렛과 결과 표시 텍스트 사이 간격 더 줄임 (기존 15px) */
+            margin-bottom: 8px; /* 룰렛과 결과 표시 텍스트 사이 간격 */
         }
 
         .pointer {
@@ -94,7 +95,7 @@
 
         .menu-text {
             font-family: 'Do Hyeon', sans-serif;
-            font-size: clamp(9px, 2.8vw, 12px); /* 텍스트가 바깥으로 이동함에 따라 크기 미세 조정 */
+            font-size: clamp(9px, 2.8vw, 12px); 
             font-weight: normal;
             color: #ffffff;
             text-shadow: 
@@ -102,10 +103,10 @@
                  1px -1px 0 #000,
                 -1px  1px 0 #000,
                  1px  1px 0 #000,
-                 0px  0px 3px rgba(0,0,0,0.7); /* 그림자 약간 더 선명하게 */
-            padding: clamp(2px, 0.6vw, 3px) clamp(3px, 0.8vw, 4px); /* 패딩 미세 조정 */
+                 0px  0px 3px rgba(0,0,0,0.7);
+            padding: clamp(2px, 0.6vw, 3px) clamp(3px, 0.8vw, 4px);
             white-space: nowrap;
-            max-width: clamp(65px, 20vw, 100px); /* 최대 너비 미세 조정 */
+            max-width: clamp(65px, 20vw, 100px); 
             overflow: hidden;
             text-overflow: ellipsis;
             letter-spacing: 0.5px;
@@ -139,7 +140,7 @@
         }
 
         #resultDisplay {
-            margin-top: 15px; /* 룰렛과의 간격이 줄었으므로, 이 부분도 살짝 조정 (기존 20px) */
+            margin-top: 15px; 
             font-size: 1.2em;
             font-weight: bold;
             color: #2c3e50;
@@ -318,11 +319,11 @@
                 height: 35px;
                 margin-right: 8px;
             }
-            .roulette-wrapper { /* 모바일에서 룰렛과 결과 표시 텍스트 사이 간격 */
-                margin-bottom: 5px; /* 더 가깝게 조정 */
+            .roulette-wrapper {
+                margin-bottom: 5px; 
             }
-            #resultDisplay { /* 모바일에서 결과 표시 텍스트 위쪽 간격 */
-                margin-top: 10px; /* 더 가깝게 조정 */
+            #resultDisplay { 
+                margin-top: 10px; 
             }
             #spinButton {
                 padding: 10px 20px;
@@ -493,7 +494,6 @@
                         return; 
                     }
                     const wheelRadius = wheelDiameter / 2;
-                    // 룰렛 내 텍스트를 원의 더 바깥쪽으로 이동 (기존 0.60에서 0.68로 변경)
                     const radiusForText = wheelRadius * 0.68; 
 
                     const x = wheelRadius + radiusForText * Math.cos(textAngleDeg * Math.PI / 180 - Math.PI / 2);
